@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Contact Me – Gerson Bradford</title>
-  <link rel="stylesheet" href="./css/style.css"/>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerson Bradford — Contact</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/main.js" defer></script>
 </head>
 <body>
+  <!-- navigation -->
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="reel.html">Reel</a>
@@ -14,69 +17,70 @@
     <a href="contact.html" class="active">Contact</a>
   </nav>
 
-  <section class="contact-page modern">
-    <div class="contact-container">
+  <!-- canvas animation background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- contact section -->
+  <section class="contact-section">
+    <div class="contact-card">
       <h2>Get in Touch</h2>
-      <p class="contact-desc">
+      <p class="contact-tagline">
         Shoot me a message about your next big idea—I’d love to collaborate!
       </p>
-      <form id="contactForm">
-        <div class="form-grid">
-          <label class="floating-label">
-            <input id="nameField" type="text" name="name" placeholder=" " required/>
-            <span>Name</span>
+
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="contact-form"
+      >
+        <!-- Netlify hidden fields -->
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="honeypot">
+          <label>
+            Don’t fill this out if you’re human:
+            <input name="bot-field" />
           </label>
-          <label class="floating-label">
-            <input id="emailField" type="email" name="email" placeholder=" " required/>
-            <span>Email</span>
-          </label>
+        </p>
+
+        <!-- name & email row -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
         </div>
-        <label class="floating-label full">
-          <textarea id="messageField" name="message" placeholder=" " required></textarea>
-          <span>Your Message</span>
-        </label>
-        <button type="submit" class="btn-submit">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M.05 3.555L8 8l7.95-4.445A.5.5 0 0 0 15 3H1a.5.5 0 0 0-.95.555z"/>
-            <path d="M15.854 4.15L8 8.917.146 4.15A.5.5 0 0 0 0 4.5v7a.5.5 0 0 0 .646.445L8 9.083l7.354 2.862A.5.5 0 0 0 16 11.5v-7a.5.5 0 0 0-.146-.35z"/>
-          </svg>
-          <span>Send Message</span>
+
+        <!-- message textarea -->
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+
+        <!-- submit button -->
+        <button type="submit" class="btn submit-btn">
+          ✉️ Send Message
         </button>
-        <p id="formFeedback" class="form-feedback"></p>
+
+        <!-- feedback messages -->
+        <div id="form-success" class="form-feedback hidden">
+          ✓ Thanks! I’ll get back to you soon.
+        </div>
+        <div id="form-error" class="form-feedback hidden">
+          ✗ Oops—something went wrong. Please try again later.
+        </div>
       </form>
     </div>
   </section>
 
-  <footer>Website created by Gerson Bradford</footer>
-
-  <script>
-    document.getElementById('contactForm').addEventListener('submit', async e => {
-      e.preventDefault();
-      const feedback = document.getElementById('formFeedback');
-      feedback.textContent = 'Sending…';
-      const data = {
-        name: document.getElementById('nameField').value,
-        email: document.getElementById('emailField').value,
-        message: document.getElementById('messageField').value,
-      };
-      try {
-        const res = await fetch('http://localhost:3000/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        const json = await res.json();
-        if (json.success) {
-          feedback.textContent = '✅ Sent! Thanks for reaching out.';
-          e.target.reset();
-        } else {
-          throw new Error(json.error || 'Unknown error');
-        }
-      } catch (err) {
-        feedback.textContent = '❌ Error sending—try again later.';
-        console.error(err);
-      }
-    });
-  </script>
+  <!-- footer -->
+  <footer class="site-footer">
+    Website created by Gerson Bradford
+  </footer>
 </body>
 </html>
