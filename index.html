@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Gerson Bradford – Portfolio</title>
+  <link rel="icon" href="assets/images/favicon.ico" />
+
+
+  <!-- UI Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="./css/style.css"/>
+
+  <!-- Circle trigger styling (pure CSS) -->
+  <style>
+    .trigger {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      pointer-events: auto;
+      z-index: 2;
+      border-radius: 50%;
+      will-change: transform;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="index.html" class="active">Home</a>
+    <a href="reel.html">Reel</a>
+    <a href="scripts.html">Scripts</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <!-- Hero with animated background -->
+  <section id="vanta-bg" class="hero">
+    <div class="code-bg"></div>
+    <div class="hero-overlay">
+      <h1 id="name">Gerson Bradford</h1>
+      <p class="hero-sub">Motion Graphics • AE Scripts • Creative Coding</p>
+    </div>
+  </section>
+
+  <!-- Pop-up Modal -->
+  <div id="popupModal">
+    <div class="popup-content">
+      <button id="popupClose">&times;</button>
+      <div id="popupInner"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>Website created by Gerson Bradford</footer>
+
+  <!-- Libraries (deferred for non-blocking paint) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.net.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" defer></script>
+  <!-- Main JS -->
+  <script src="./js/main.js" defer></script>
+</body>
+</html>

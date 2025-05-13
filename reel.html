@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gerson Bradford – Showreel</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="reel.html" class="active">Reel</a>
+    <a href="scripts.html">Scripts</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <section class="main-reel">
+    <h2>Main Showreel</h2>
+    <video
+      controls
+      src="assets/videos/reel.mp4"
+      poster="assets/images/reel-bg.jpg"
+    ></video>
+  </section>
+
+  <section class="other-videos">
+    <h2>More Demos</h2>
+    <div class="video-grid">
+      <div class="video-thumb" data-src="assets/videos/demo1.mp4">
+        <img src="assets/images/thumb1.jpg" alt="Demo 1" />
+        <h3>AE Script Demo</h3>
+      </div>
+      <div class="video-thumb" data-src="assets/videos/demo2.mp4">
+        <img src="assets/images/thumb2.jpg" alt="Demo 2" />
+        <h3>Interactive App</h3>
+      </div>
+      <div class="video-thumb" data-src="assets/videos/demo3.mp4">
+        <img src="assets/images/thumb3.jpg" alt="Demo 3" />
+        <h3>Workflow Tool</h3>
+      </div>
+    </div>
+  </section>
+
+  <div id="videoModal">
+    <div class="modal-content">
+      <button id="closeModal">&times;</button>
+      <video id="modalVideo" controls></video>
+    </div>
+  </div>
+
+  <script src="./js/main.js" defer></script>
+</body>
+</html>

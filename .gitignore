@@ -1,0 +1,6 @@
+node_modules/
+
+# ignore heavy assets
+assets/videos/*.mp4
+assets/images/*.jpg
+
