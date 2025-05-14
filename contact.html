@@ -5,13 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gerson Bradford — Contact</title>
-  
-  <!-- your existing global CSS -->
   <link rel="stylesheet" href="css/style.css" />
-  
-  <!-- override/add for this page -->
+
+  <!-- Page-specific overrides -->
   <style>
-    /* center content, above the canvas */
+    /* Center above the canvas */
     .contact-section {
       position: relative;
       z-index: 1;
@@ -21,7 +19,7 @@
       min-height: 80vh;
       padding: 2rem;
     }
-    /* card look */
+    /* The card wrapper */
     .contact-card {
       background: rgba(0, 0, 0, 0.75);
       border-radius: 1rem;
@@ -42,33 +40,36 @@
       text-align: center;
       margin-bottom: 2rem;
     }
-    /* form grid */
+
+    /* Two-column layout for name/email */
     .contact-form .form-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr; /* equal halves */
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
-    .contact-form .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-    .contact-form label {
-      color: #ccc;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-    }
+
+    /* Ensure inputs fill their cells */
     .contact-form input,
     .contact-form textarea {
+      width: 100%;
+      box-sizing: border-box;
       padding: 0.75rem;
       border: none;
       border-radius: 0.5rem;
       font-size: 1rem;
       resize: vertical;
     }
-    .contact-form textarea {
-      min-height: 150px;
+    .contact-form textarea { min-height: 150px; }
+
+    /* Labels */
+    .contact-form label {
+      color: #ccc;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
     }
+
+    /* Submit button */
     .contact-form .btn.submit-btn {
       display: block;
       width: 100%;
@@ -86,6 +87,8 @@
     .contact-form .btn.submit-btn:hover {
       background: #187bcd;
     }
+
+    /* Feedback messages */
     .form-feedback {
       display: none;
       margin-top: 1rem;
@@ -95,23 +98,26 @@
     .form-feedback.active {
       display: block;
     }
-    /* hide honeypot */
+
+    /* Hide the honeypot field */
     .honeypot { display: none; }
   </style>
-  
+
   <script src="js/main.js" defer></script>
 </head>
 <body>
-  <!-- nav + canvas untouched -->
+  <!-- navigation -->
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="reel.html">Reel</a>
     <a href="scripts.html">Scripts</a>
     <a href="contact.html" class="active">Contact</a>
   </nav>
+
+  <!-- animated background -->
   <canvas id="bg-canvas"></canvas>
 
-  <!-- updated contact form -->
+  <!-- contact form -->
   <section class="contact-section">
     <div class="contact-card">
       <h2>Get in Touch</h2>
@@ -126,7 +132,7 @@
         netlify-honeypot="bot-field"
         class="contact-form"
       >
-        <!-- Netlify required -->
+        <!-- Netlify required hidden fields -->
         <input type="hidden" name="form-name" value="contact" />
         <p class="honeypot">
           <label>
@@ -135,6 +141,7 @@
           </label>
         </p>
 
+        <!-- Name & Email in two columns -->
         <div class="form-row">
           <div class="form-group">
             <label for="name">Name</label>
@@ -146,16 +153,18 @@
           </div>
         </div>
 
+        <!-- Message textarea -->
         <div class="form-group">
           <label for="message">Your Message</label>
           <textarea id="message" name="message" required></textarea>
         </div>
 
+        <!-- Submit button -->
         <button type="submit" class="btn submit-btn">
           ✉️ Send Message
         </button>
 
-        <!-- feedback (you can hook these up with JS if you like) -->
+        <!-- Feedback (JS can toggle “active”) -->
         <div id="form-success" class="form-feedback">
           ✓ Thanks! I’ll get back to you soon.
         </div>
@@ -166,6 +175,7 @@
     </div>
   </section>
 
+  <!-- footer -->
   <footer class="site-footer">
     Website created by Gerson Bradford
   </footer>
