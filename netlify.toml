@@ -4,7 +4,9 @@
   publish = "."
 
 [[redirects]]
-  from = "/contact"
-  to   = "/contact.html"
-  status = 200
-  force = true
+  from    = "/contact"
+  to      = "/contact.html"
+  status  = 200
+  force   = true
+  methods = ["GET","POST"]
+
