@@ -4,30 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Gerson Bradford – Showreel</title>
+  <link rel="icon" href="assets/images/favicon.ico" />
+
+  <!-- UI Font -->
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
     rel="stylesheet"
   />
+
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="./css/style.css" />
+
+  <style>
+    /* make the iframe responsive */
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 6rem auto;  /* same vertical rhythm as other pages */
+      padding-top: 56.25%; /* 16:9 aspect */
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Navigation -->
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="reel.html" class="active">Reel</a>
     <a href="scripts.html">Scripts</a>
-    <a href="contact.html" class="…">Contact</a>
-
+    <a href="contact.html">Contact</a>
   </nav>
 
+  <!-- Embedded YouTube Showreel -->
   <section class="main-reel">
     <h2>Main Showreel</h2>
-    <video
-      controls
-      src="assets/videos/reel.mp4"
-      poster="assets/images/reel-bg.jpg"
-    ></video>
+    <div class="video-container">
+      <iframe
+        src="https://www.youtube.com/embed/QUFegcFhW94?si=KSwabNGkoJHBM2Gi"
+        title="Gerson Bradford Showreel"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
   </section>
 
+  <!-- Optional: other videos grid if you still want it -->
   <section class="other-videos">
     <h2>More Demos</h2>
     <div class="video-grid">
@@ -46,6 +77,7 @@
     </div>
   </section>
 
+  <!-- Video modal (unchanged) -->
   <div id="videoModal">
     <div class="modal-content">
       <button id="closeModal">&times;</button>
@@ -53,6 +85,11 @@
     </div>
   </div>
 
+  <!-- Main JS (Vanta, anime, GSAP, pop-ups, modals, etc.) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.net.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" defer></script>
   <script src="./js/main.js" defer></script>
 </body>
 </html>
