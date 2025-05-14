@@ -1,0 +1,3 @@
+[build]
+  publish    = "/"                # root of your repo is your published site
+  functions  = "netlify/functions"  # where your serverless code lives
