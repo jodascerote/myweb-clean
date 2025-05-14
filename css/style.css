@@ -364,5 +364,17 @@
   margin-top: 1rem;
   font-weight: 500;
 }
+/* Contact-form Name input override */
+.contact-form input#name {
+  font-family: var(--font-ui) !important;
+  font-size: 0.9rem     !important;
+  height: 3rem;    /* keep your fixed height */
+  line-height: 1.2;
+}
+.contact-form input#email {
+  font-family: var(--font-ui) !important;
+  font-size: 0.9rem     !important;
+}
+
 
   
