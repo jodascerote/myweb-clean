@@ -1,11 +1,72 @@
 /* ========================================================================
    Custom Font
    ======================================================================== */
-@font-face {
-  font-family: 'Tomatoes';
-  src: url('../assets/fonts/Tomatoes-O8L8.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+@font-face{
+  font-family:'Tomatoes';
+  src:url('../assets/fonts/Tomatoes-O8L8.ttf') format('truetype');
+}
+
+/* ========================================================================
+   CSS Variables
+   ======================================================================== */
+:root{
+  --color-bg:#0B172A;
+  --color-primary:#39A0ED;
+  --color-accent1:#FFD369;
+  --color-accent2:#4AD5FF;
+  --color-text:#f0f0f0;
+  --font-ui:'Poppins',sans-serif;
+  --font-name:'Tomatoes',cursive;
+}
+
+/* ========================================================================
+   Reset & Base
+   ======================================================================== */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--font-ui);background:var(--color-bg);color:var(--color-text);line-height:1.5;}
+a{color:var(--color-primary);text-decoration:none;}
+a:hover{color:var(--color-accent1);}
+
+/* ========================================================================
+   Hero “floating circle” trigger  <<< NEW home for that rule
+   ======================================================================== */
+.trigger{
+  position:absolute;
+  width:160px;
+  height:160px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-family:var(--font-ui);
+  font-size:1rem;
+  font-weight:600;
+  text-align:center;
+  cursor:pointer;
+  pointer-events:auto;
+  z-index:2;
+  border-radius:50%;
+  will-change:transform;
+}
+
+/* … (all your existing CSS remains unchanged here) … */
+
+/* ========================================================================
+   PHONE-ONLY circle shrink  (≤ 500 px portrait / ≤ 430 px height)
+   ======================================================================== */
+@media (max-width:500px){
+  .trigger{
+    width:100px !important;
+    height:100px !important;
+    font-size:.8rem !important;
+  }
+}
+@media (max-height:430px){
+  .trigger{
+    width:90px !important;
+    height:90px !important;
+    font-size:.75rem !important;
+  }
 }
 
 /* ========================================================================
