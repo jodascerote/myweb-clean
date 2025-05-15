@@ -156,41 +156,58 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ---------------------------------------------------------------- */
   /* 7.  OPTIONAL  —  make circles draggable on touch devices         */
   /* ---------------------------------------------------------------- */
-  function isTouchDevice() {
-    return matchMedia("(pointer: coarse)").matches;
-  }
+function isTouchDevice() {
+  return matchMedia("(pointer: coarse)").matches;
+}
 
-  if (isTouchDevice()) {
-    document.querySelectorAll(".trigger").forEach((circle) => {
-      circle.style.touchAction = "none"; // allow free panning
+if (isTouchDevice()) {
+  document.querySelectorAll(".trigger").forEach((circle) => {
+    circle.style.touchAction = "none"; // allow free panning
 
-      circle.addEventListener("pointerdown", (e) => {
-        if (e.pointerType !== "touch") return;
+    circle.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "touch") return;
 
-        const tween = activeTweens.get(circle);
-        if (tween) tween.pause();
+      /* 1️⃣  Stop (and forget) the current floating tween */
+      const oldTween = activeTweens.get(circle);
+      if (oldTween) oldTween.kill();
 
-        const startX = e.clientX;
-        const startY = e.clientY;
-        const orig = circle.getBoundingClientRect();
-        const offsetX = startX - orig.left;
-        const offsetY = startY - orig.top;
+      const startX = e.clientX;
+      const startY = e.clientY;
+      const bcr = circle.getBoundingClientRect();
+      const offsetX = startX - bcr.left;
+      const offsetY = startY - bcr.top;
 
-        function onMove(ev) {
-          const x = ev.clientX - offsetX;
-          const y = ev.clientY - offsetY;
-          gsap.set(circle, { x, y });
-          ev.preventDefault();
-        }
-        function onUp() {
-          if (tween) tween.play();
-          window.removeEventListener("pointermove", onMove);
-          window.removeEventListener("pointerup", onUp);
-        }
+      function onMove(ev) {
+        const x = ev.clientX - offsetX;
+        const y = ev.clientY - offsetY;
+        gsap.set(circle, { x, y });
+        ev.preventDefault();
+      }
 
-        window.addEventListener("pointermove", onMove, { passive: false });
-        window.addEventListener("pointerup", onUp);
-      });
+      function onUp(ev) {
+        /* 2️⃣  Record the circle’s new home … */
+        const newPos = circle.getBoundingClientRect();
+        const posX = newPos.left; // in px relative to viewport
+        const posY = newPos.top;
+
+        /* 3️⃣  …then start a *new* gentle float around that spot */
+        const newTween = gsap.to(circle, {
+          x: posX + (Math.random() * 40 - 20),
+          y: posY + (Math.random() * 30 - 15),
+          duration: 4 + Math.random() * 2,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+        });
+        activeTweens.set(circle, newTween);
+
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onUp);
+      }
+
+      window.addEventListener("pointermove", onMove, { passive: false });
+      window.addEventListener("pointerup", onUp);
     });
-  }
+  });
+}
 });
