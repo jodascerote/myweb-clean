@@ -210,4 +210,46 @@ if (isTouchDevice()) {
     });
   });
 }
+
+/* ---------------------------------------------------------------- */
+/* 8.  Keep circles visible after resize / orientation-change       */
+/* ---------------------------------------------------------------- */
+
+function clamp(val, min, max) {
+  return Math.min(Math.max(val, min), max);
+}
+
+function respawnFloatTween(circle) {
+  // Kill any existing tween and store the replacement
+  const old = activeTweens.get(circle);
+  if (old) old.kill();
+
+  const bcr = circle.getBoundingClientRect();
+  const vpW = window.innerWidth;
+  const vpH = window.innerHeight;
+
+  // 8 px padding so it never hugs the edge
+  const safeX = clamp(bcr.left, 8, vpW - bcr.width - 8);
+  const safeY = clamp(bcr.top,  8, vpH - bcr.height - 8);
+
+  // Move circle instantly to the clamped spot
+  gsap.set(circle, { x: safeX, y: safeY });
+
+  // Start a new gentle float around that spot
+  const tween = gsap.to(circle, {
+    x: safeX + (Math.random() * 40 - 20),
+    y: safeY + (Math.random() * 30 - 15),
+    duration: 4 + Math.random() * 2,
+    ease: "sine.inOut",
+    repeat: -1,
+    yoyo: true
+  });
+  activeTweens.set(circle, tween);
+}
+
+// Listen once for every resize / orientation-change
+window.addEventListener("resize", () => {
+  document.querySelectorAll(".trigger").forEach(respawnFloatTween);
+});
+
 });
