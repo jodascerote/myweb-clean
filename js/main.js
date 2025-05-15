@@ -102,7 +102,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const popupData = {
     about: `
       <h3>About Me</h3>
-      <p>I lead with imagination and let code keep pace. …</p>
+      <p>I craft moving stories at the intersection of code and creativity.
+Animator by passion, video producer by trade, self-taught programmer by sheer curiosity, I build pipelines that let ideas travel from brainstorm to screen at breakneck speed. My day starts with storyboards and keyframes, shifts to JavaScript and Python that automate the tedium, and ends with AI-powered iterations that push every frame closer to tomorrow. The result: projects that arrive ahead of schedule, look sharper than expected, and leave room for the next big experiment.
+
+Along the way I’ve learned that speed without vision is noise. So I focus each automation on freeing time for the work only humans can do—visual invention, narrative rhythm, emotional punch. Colleagues know me as the “give-me-the-problem” person: if the answer isn’t obvious, I prototype until it is, documenting the process so the whole team levels up. The constant? A type-A drive to stay two releases ahead of the software and a habit of treating every finished project as version 1.0.
+
+Looking forward, I’m exploring generative video, real-time rendering, and adaptive storytelling—tools that will soon blur the gap between concept and final cut. If you need a partner who codes as fluently as they animate and who sees deadlines as starting lines, let’s talk about what comes next.
+
+</p>
     `,
     history: `
       <h3>Work History</h3>
@@ -114,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `,
     automation: `
       <h3>Workflow Engineering</h3>
-      <p>I design the machinery behind the magic. …</p>
+      <p>I design the machinery behind the magic. Over 30 custom After Effects scripts, two production-ready extensions, and six Python apps keep editors in flow while the pipeline handles the grunt work. From JSX that sequences 600 layers in seconds to AI-powered asset tagging, every tool I ship buys creatives more time to create.</p>
     `,
   };
 
