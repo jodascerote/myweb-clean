@@ -167,12 +167,12 @@ function isTouchDevice() {
   return matchMedia("(pointer: coarse)").matches;
 }
 
-if (isTouchDevice()) {
+
   document.querySelectorAll(".trigger").forEach((circle) => {
     circle.style.touchAction = "none"; // allow free panning
 
     circle.addEventListener("pointerdown", (e) => {
-      if (e.pointerType !== "touch") return;
+      
 
       /* 1️⃣  Stop (and forget) the current floating tween */
       const oldTween = activeTweens.get(circle);
@@ -216,7 +216,7 @@ if (isTouchDevice()) {
       window.addEventListener("pointerup", onUp);
     });
   });
-}
+
 
 /* ---------------------------------------------------------------- */
 /* 8.  Keep circles visible after resize / orientation-change       */
