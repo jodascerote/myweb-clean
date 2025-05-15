@@ -157,8 +157,13 @@ a:hover{color:var(--color-accent1)}
   font-family:'Unbounded',serif;
   color:var(--color-primary);margin-bottom:1rem;font-size:1.75rem
 }
+/* —— ensure popup paragraphs wrap & scroll properly —— */
 #popupModal .popup-content p,
-#popupModal .popup-content li{line-height:1.6;margin-bottom:.75rem}
+#popupModal .popup-content li {
+  white-space: normal !important;   /* ⚑ allow wrapping  */
+  overflow: visible !important;     /* ⚑ no clipping     */
+  text-overflow: unset !important;  /* ⚑ no ellipsis     */
+}
 #popupModal .popup-content ul{padding-left:1.2rem;margin-bottom:1rem}
 #popupClose{
   position:absolute;top:1rem;right:1rem;width:36px;height:36px;
