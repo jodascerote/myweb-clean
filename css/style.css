@@ -307,4 +307,11 @@ footer:not(.site-footer){display:none}
   /* 4.  Footer – reduce vertical padding */
   .site-footer { padding: .75rem; }
 
+  /* sparkle-interaction ------------------------------------------- */
+  .trigger{
+    transition: transform .25s ease, box-shadow .25s ease;
+    transform-origin: center;
+  }
+
+
 }

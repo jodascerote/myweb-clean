@@ -1,7 +1,5 @@
-// js/main.js  (full file)
-
 /* ------------------------------------------------------------------ */
-/* 1.  Vanta background                                               */
+/*  1.  Vanta background                                               */
 /* ------------------------------------------------------------------ */
 if (window.VANTA && VANTA.NET) {
   VANTA.NET({
@@ -15,248 +13,198 @@ if (window.VANTA && VANTA.NET) {
     mouseControls: true,
     touchControls: true,
     gyroControls: false,
-    scale: 1.0,
-    scaleMobile: 1.0,
+    scale: 1,
+    scaleMobile: 1,
   });
 }
 
 /* ------------------------------------------------------------------ */
-/* 2.  Floating code symbols (unchanged)                              */
+/*  2.  Floating code symbols                                          */
 /* ------------------------------------------------------------------ */
 document.addEventListener("DOMContentLoaded", () => {
   const codeBg = document.querySelector(".code-bg");
-  const chars = ["{", "}", "<", ">", "/", ";", "(", ")", "[", "]", "=", "+", "*", "&", "%", "#"];
+  const chars  = ["{","}","<",">","/",";","(",")","[","]","=","+","*","&","%","#"];
+
   for (let i = 0; i < 50; i++) {
     const span = document.createElement("span");
-    span.className = "code-char";
-    span.textContent = chars[Math.floor(Math.random() * chars.length)];
-    span.style.left = `${Math.random() * 100}vw`;
+    span.className       = "code-char";
+    span.textContent     = chars[Math.floor(Math.random() * chars.length)];
+    span.style.left      = `${Math.random() * 100}vw`;
+    span.style.fontSize  = `${20 + Math.random() * 30}px`;
     span.style.animationDuration = `${6 + Math.random() * 6}s`;
-    span.style.fontSize = `${20 + Math.random() * 30}px`;
-    span.style.color = Math.random() < 0.5 ? "var(--color-accent1)" : "var(--color-accent2)";
+    span.style.color     = Math.random() < .5 ? "var(--color-accent1)" : "var(--color-accent2)";
     codeBg.appendChild(span);
   }
 
   /* ---------------------------------------------------------------- */
-  /* 3.  Anime.js letter intro (unchanged)                            */
+  /*  3.  Name intro                                                  */
   /* ---------------------------------------------------------------- */
   const nameEl = document.getElementById("name");
-  const text = nameEl.textContent.trim();
-  nameEl.innerHTML = text.replace(/\S/g, "<span class='letter'>$&</span>");
-  anime
-    .timeline()
-    .add({
-      targets: "#name .letter",
-      translateY: [150, 0],
-      opacity: [0, 1],
-      rotateX: [90, 0],
-      scale: [0.3, 1],
-      easing: "easeOutExpo",
-      duration: 700,
-      delay: (el, i) => 40 * i,
-    });
-
-  /* ---------------------------------------------------------------- */
-  /* 4.  Create the three floating triggers                           */
-  /* ---------------------------------------------------------------- */
-  const hero = document.getElementById("vanta-bg");
-  const triggerConfigs = [
-    { key: "about", label: "About Me", xPct: 15, yPct: 30, color: "var(--color-accent1)" },
-    { key: "history", label: "Work History", xPct: 85, yPct: 30, color: "var(--color-accent2)" },
-    { key: "automation", label: "Workflow Eng.", xPct: 50, yPct: 75, color: "var(--color-primary)" },
-  ];
-
-  const activeTweens = new Map(); // keep a reference so we can pause / play later
-
-  triggerConfigs.forEach((cfg) => {
-    const el = document.createElement("div");
-    el.className = "trigger";
-    el.dataset.popup = cfg.key;
-    el.innerText = cfg.label;
-    el.style.background = cfg.color;
-    hero.appendChild(el);
-
-    const startX = (cfg.xPct / 100) * window.innerWidth;
-    const startY = (cfg.yPct / 100) * window.innerHeight;
-
-    gsap.set(el, { x: startX, y: startY });
-
-    const tween = gsap.to(el, {
-      x: startX + (Math.random() * 40 - 20),
-      y: startY + (Math.random() * 30 - 15),
-      duration: 4 + Math.random() * 2,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true,
-      delay: Math.random() * 2,
-    });
-    activeTweens.set(el, tween);
+  nameEl.innerHTML = nameEl.textContent.trim().replace(/\S/g, "<span class='letter'>$&</span>");
+  anime.timeline().add({
+    targets: "#name .letter",
+    translateY: [150,0],
+    opacity   : [0,1],
+    rotateX   : [90,0],
+    scale     : [.3,1],
+    easing    : "easeOutExpo",
+    duration  : 700,
+    delay     : (_,i) => 40 * i,
   });
 
   /* ---------------------------------------------------------------- */
-  /* 5.  Popup logic (unchanged)                                      */
+  /*  4.  Build floating circles                                      */
+  /* ---------------------------------------------------------------- */
+  const hero = document.getElementById("vanta-bg");
+  const triggerConfigs = [
+    { key:"about",      label:"About Me",        xPct:15, yPct:30, color:"var(--color-accent1)" },
+    { key:"history",    label:"Work History",    xPct:85, yPct:30, color:"var(--color-accent2)" },
+    { key:"automation", label:"Workflow Eng.",   xPct:50, yPct:75, color:"var(--color-primary)"},
+  ];
+
+  const activeTweens = new Map();   // store current float tween for each circle
+
+  /* == glow / scale helper ========================================= */
+  function addCircleFX(circle){
+    // hover / focus
+    circle.addEventListener("pointerenter",()=>{
+      gsap.to(circle,{scale:1.15,boxShadow:"0 0 18px rgba(255,255,255,.8)",duration:.25,overwrite:"auto"});
+    });
+    circle.addEventListener("pointerleave",()=>{
+      gsap.to(circle,{scale:1,boxShadow:"0 0 0 rgba(0,0,0,0)",duration:.25,overwrite:"auto"});
+    });
+    // touch / mouse-down
+    circle.addEventListener("pointerdown",()=>{
+      gsap.to(circle,{scale:1.15,boxShadow:"0 0 18px rgba(255,255,255,.8)",duration:.2});
+    });
+    circle.addEventListener("pointerup",()=>{
+      gsap.to(circle,{scale:1,boxShadow:"0 0 0 rgba(0,0,0,0)",duration:.25});
+    });
+  }
+
+  triggerConfigs.forEach(cfg=>{
+    const el = document.createElement("div");
+    el.className = "trigger";
+    el.dataset.popup = cfg.key;
+    el.textContent   = cfg.label;
+    el.style.background = cfg.color;
+    hero.appendChild(el);
+    addCircleFX(el);                           //  <<<  glow / scale
+
+    const startX = cfg.xPct/100 * innerWidth;
+    const startY = cfg.yPct/100 * innerHeight;
+    gsap.set(el,{x:startX,y:startY});
+    const tween = gsap.to(el,{
+      x:startX + (Math.random()*40-20),
+      y:startY + (Math.random()*30-15),
+      duration:4+Math.random()*2,
+      ease:"sine.inOut",
+      repeat:-1,
+      yoyo:true,
+      delay:Math.random()*2,
+    });
+    activeTweens.set(el,tween);
+  });
+
+  /* ---------------------------------------------------------------- */
+  /*  5.  Popup                                                       */
   /* ---------------------------------------------------------------- */
   const popupModal = document.getElementById("popupModal");
   const popupInner = document.getElementById("popupInner");
   const popupClose = document.getElementById("popupClose");
-  const popupData = {
-    about: `
+  const popupData  = {
+    about:`
       <h3>About Me</h3>
-      <p>I craft moving stories at the intersection of code and creativity.
-Animator by passion, video producer by trade, self-taught programmer by sheer curiosity, I build pipelines that let ideas travel from brainstorm to screen at breakneck speed. My day starts with storyboards and keyframes, shifts to JavaScript and Python that automate the tedium, and ends with AI-powered iterations that push every frame closer to tomorrow. The result: projects that arrive ahead of schedule, look sharper than expected, and leave room for the next big experiment.
-
-Along the way I’ve learned that speed without vision is noise. So I focus each automation on freeing time for the work only humans can do—visual invention, narrative rhythm, emotional punch. Colleagues know me as the “give-me-the-problem” person: if the answer isn’t obvious, I prototype until it is, documenting the process so the whole team levels up. The constant? A type-A drive to stay two releases ahead of the software and a habit of treating every finished project as version 1.0.
-
-Looking forward, I’m exploring generative video, real-time rendering, and adaptive storytelling—tools that will soon blur the gap between concept and final cut. If you need a partner who codes as fluently as they animate and who sees deadlines as starting lines, let’s talk about what comes next.
-
-</p>
-    `,
-    history: `
+      <p>I lead with imagination and let code keep pace. A relentlessly driven animator and award-winning filmmaker, I’ve scripted 30+ After Effects tools, built 2 extensions and 6 Python apps that clear the runway for fresh ideas to take flight…</p>`,
+    history:`
       <h3>Work History</h3>
       <ul>
-        <li>2016-2025 · Senior Motion Graphics & Automation Lead – AdMed</li>
-        <li>2003-Present · Freelance Creative Director</li>
-        <li>2003-2008 · Owner – Bradford Sound Studios</li>
-      </ul>
-    `,
-    automation: `
+        <li>2016 – 2025 · Senior Motion Graphics & Automation Lead, AdMed</li>
+        <li>2003 – Present · Freelance Creative Director</li>
+        <li>2003 – 2008 · Owner, Bradford Sound Studios</li>
+      </ul>`,
+    automation:`
       <h3>Workflow Engineering</h3>
-      <p>I design the machinery behind the magic. Over 30 custom After Effects scripts, two production-ready extensions, and six Python apps keep editors in flow while the pipeline handles the grunt work. From JSX that sequences 600 layers in seconds to AI-powered asset tagging, every tool I ship buys creatives more time to create.</p>
-    `,
+      <p>I design the machinery behind the magic: 30+ custom AE scripts, two production-ready extensions and six Python apps keep editors in flow while the pipeline handles the grunt work…</p>`
   };
 
-  document.querySelectorAll(".trigger").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const key = btn.dataset.popup;
-      popupInner.innerHTML = popupData[key] || "<p>(no content)</p>";
+  document.querySelectorAll(".trigger").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      popupInner.innerHTML = popupData[btn.dataset.popup] || "<p>(no content)</p>";
       popupModal.classList.add("open");
     });
   });
-  popupClose.addEventListener("click", () => popupModal.classList.remove("open"));
-  popupModal.addEventListener("click", (e) => {
-    if (e.target === popupModal) popupClose.click();
+  popupClose.addEventListener("click",()=>popupModal.classList.remove("open"));
+  popupModal.addEventListener("click",e=>{
+    if(e.target===popupModal) popupClose.click();
   });
 
   /* ---------------------------------------------------------------- */
-  /* 6.  Reel thumbnail modal (unchanged)                             */
+  /*  6.  Video-modal (unchanged)                                     */
   /* ---------------------------------------------------------------- */
-  const modal = document.getElementById("videoModal");
-  const modalVideo = document.getElementById("modalVideo");
-  const closeBtn = document.getElementById("closeModal");
-  document.querySelectorAll(".video-thumb").forEach((thumb) => {
-    thumb.addEventListener("click", () => {
-      modalVideo.src = thumb.dataset.src;
-      modal.classList.add("open");
+  const vModal = document.getElementById("videoModal");
+  const vPlayer= document.getElementById("modalVideo");
+  const vClose = document.getElementById("closeModal");
+  document.querySelectorAll(".video-thumb").forEach(thumb=>{
+    thumb.addEventListener("click",()=>{
+      vPlayer.src = thumb.dataset.src;
+      vModal.classList.add("open");
     });
   });
-  if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-      modal.classList.remove("open");
-      modalVideo.pause();
-      modalVideo.currentTime = 0;
+  if(vClose){
+    vClose.addEventListener("click",()=>{
+      vModal.classList.remove("open");
+      vPlayer.pause(); vPlayer.currentTime = 0;
     });
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeBtn.click();
+    vModal.addEventListener("click",e=>{
+      if(e.target===vModal) vClose.click();
     });
   }
 
   /* ---------------------------------------------------------------- */
-  /* 7.  OPTIONAL  —  make circles draggable on touch devices         */
+  /*  7.  Drag-to-reposition (all devices)                            */
   /* ---------------------------------------------------------------- */
-function isTouchDevice() {
-  return matchMedia("(pointer: coarse)").matches;
-}
+  document.querySelectorAll(".trigger").forEach(circle=>{
+    circle.style.touchAction = "none";
 
+    circle.addEventListener("pointerdown",e=>{
+      const old = activeTweens.get(circle); if(old) old.kill();
 
-  document.querySelectorAll(".trigger").forEach((circle) => {
-    circle.style.touchAction = "none"; // allow free panning
-
-    circle.addEventListener("pointerdown", (e) => {
-      
-
-      /* 1️⃣  Stop (and forget) the current floating tween */
-      const oldTween = activeTweens.get(circle);
-      if (oldTween) oldTween.kill();
-
-      const startX = e.clientX;
-      const startY = e.clientY;
+      const startX = e.clientX, startY = e.clientY;
       const bcr = circle.getBoundingClientRect();
-      const offsetX = startX - bcr.left;
-      const offsetY = startY - bcr.top;
+      const offX = startX - bcr.left, offY = startY - bcr.top;
 
-      function onMove(ev) {
-        const x = ev.clientX - offsetX;
-        const y = ev.clientY - offsetY;
-        gsap.set(circle, { x, y });
+      function onMove(ev){
+        gsap.set(circle,{x:ev.clientX-offX,y:ev.clientY-offY});
         ev.preventDefault();
       }
-
-      function onUp(ev) {
-        /* 2️⃣  Record the circle’s new home … */
-        const newPos = circle.getBoundingClientRect();
-        const posX = newPos.left; // in px relative to viewport
-        const posY = newPos.top;
-
-        /* 3️⃣  …then start a *new* gentle float around that spot */
-        const newTween = gsap.to(circle, {
-          x: posX + (Math.random() * 40 - 20),
-          y: posY + (Math.random() * 30 - 15),
-          duration: 4 + Math.random() * 2,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-        });
-        activeTweens.set(circle, newTween);
-
-        window.removeEventListener("pointermove", onMove);
-        window.removeEventListener("pointerup", onUp);
+      function onUp(){
+        respawnFloat(circle);
+        removeEventListener("pointermove",onMove);
+        removeEventListener("pointerup",onUp);
       }
-
-      window.addEventListener("pointermove", onMove, { passive: false });
-      window.addEventListener("pointerup", onUp);
+      addEventListener("pointermove",onMove,{passive:false});
+      addEventListener("pointerup",onUp);
     });
   });
 
-
-/* ---------------------------------------------------------------- */
-/* 8.  Keep circles visible after resize / orientation-change       */
-/* ---------------------------------------------------------------- */
-
-function clamp(val, min, max) {
-  return Math.min(Math.max(val, min), max);
-}
-
-function respawnFloatTween(circle) {
-  // Kill any existing tween and store the replacement
-  const old = activeTweens.get(circle);
-  if (old) old.kill();
-
-  const bcr = circle.getBoundingClientRect();
-  const vpW = window.innerWidth;
-  const vpH = window.innerHeight;
-
-  // 8 px padding so it never hugs the edge
-  const safeX = clamp(bcr.left, 8, vpW - bcr.width - 8);
-  const safeY = clamp(bcr.top,  8, vpH - bcr.height - 8);
-
-  // Move circle instantly to the clamped spot
-  gsap.set(circle, { x: safeX, y: safeY });
-
-  // Start a new gentle float around that spot
-  const tween = gsap.to(circle, {
-    x: safeX + (Math.random() * 40 - 20),
-    y: safeY + (Math.random() * 30 - 15),
-    duration: 4 + Math.random() * 2,
-    ease: "sine.inOut",
-    repeat: -1,
-    yoyo: true
-  });
-  activeTweens.set(circle, tween);
-}
-
-// Listen once for every resize / orientation-change
-window.addEventListener("resize", () => {
-  document.querySelectorAll(".trigger").forEach(respawnFloatTween);
-});
-
+  /* keep circles safely onscreen on resize / rotation -------------- */
+  function clamp(v,min,max){ return Math.min(Math.max(v,min),max); }
+  function respawnFloat(c){
+    const old = activeTweens.get(c); if(old) old.kill();
+    const b   = c.getBoundingClientRect();
+    const x   = clamp(b.left ,8,innerWidth  -b.width -8);
+    const y   = clamp(b.top  ,8,innerHeight -b.height-8);
+    gsap.set(c,{x,y});
+    const t = gsap.to(c,{
+      x: x + (Math.random()*40-20),
+      y: y + (Math.random()*30-15),
+      duration:4+Math.random()*2,
+      ease:"sine.inOut",
+      repeat:-1,
+      yoyo:true
+    });
+    activeTweens.set(c,t);
+  }
+  addEventListener("resize",()=>document.querySelectorAll(".trigger").forEach(respawnFloat));
 });
