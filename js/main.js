@@ -207,4 +207,31 @@ document.addEventListener("DOMContentLoaded", () => {
     activeTweens.set(c,t);
   }
   addEventListener("resize",()=>document.querySelectorAll(".trigger").forEach(respawnFloat));
+
+  // grab the modal + inner elements
+  const demoModal   = document.getElementById('demoModal');
+  const demoIframe  = document.getElementById('demoIframe');
+  const demoClose   = document.getElementById('demoClose');
+
+  // delegate clicks on “Watch Demo” buttons
+  document.querySelector('.card-grid').addEventListener('click', e => {
+    const btn = e.target.closest('.watch-demo');
+    if (!btn) return;
+
+    // set the iframe src (will start playback if autoplay=1)
+    demoIframe.src = btn.dataset.video;
+    demoModal.classList.add('open');
+  });
+
+  // close handlers
+  demoClose.addEventListener('click', () => {
+    demoModal.classList.remove('open');
+    demoIframe.src = ''; // unload video
+  });
+  demoModal.addEventListener('click', e => {
+    // click outside content also closes
+    if (e.target === demoModal) demoClose.click();
+  });
+
+  
 });

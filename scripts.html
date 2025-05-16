@@ -2,15 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gerson Bradford – Scripts</title>
 
-  <!-- UI fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Unbounded:wght@700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="./css/style.css" />
+  
+  <style>
+    /* Demo modal styling */
+    #demoModal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    #demoModal.open {
+      display: flex;
+    }
+    #demoModal .modal-content {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      background: #000;
+      border-radius: 8px;
+      /* overflow: hidden;  <-- remove or comment this out */
+    }
+    #demoModal iframe {
+      width: 100%;
+      height: calc(100vw * (9/16)); /* 16:9 aspect ratio */
+      max-height: 450px;
+      border: 0;
+      display: block;
+    }
+    #demoClose {
+      position: absolute;
+      top: 12px;     /* push down inside the box */
+      right: 12px;   /* push left inside the box */
+      width: 32px;
+      height: 32px;
+      background: #39A0ED;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 1;
+      transition: transform .2s;
+    }
+    #demoClose:hover {
+      transform: scale(1.1);
+    }
+  </style>
 </head>
 <body>
-  <!-- ▸ NAV ----------------------------------------------------------------- -->
+  <!-- Navigation -->
   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="reel.html">Reel</a>
@@ -18,7 +73,7 @@
     <a href="contact.html">Contact</a>
   </nav>
 
-  <!-- ▸ PAGE ---------------------------------------------------------------- -->
+  <!-- Scripts / Tools grid -->
   <section class="scripts-page">
     <div class="scripts-banner">
       <strong>🚧 Work in Progress:</strong> you will be able to see all my 36 scripts in action!
@@ -27,138 +82,84 @@
     <h2>After Effects Scripts &amp; Tools</h2>
 
     <div class="card-grid">
-      <!-- ========== CARD 1 (real video) ========== -->
+      <!-- 1 — real script card -->
       <div class="card">
-        <img src="assets/images/card1.jpg" alt="Automator Sequence">
+        <img src="assets/images/card1.jpg" alt="Automator Sequence" />
         <h3>Automator Sequence</h3>
         <p>First script made in 2014.</p>
-        <!--  put your YouTube embed URL in data-video  -->
-        <a href="#" class="btn btn-demo"
-           data-video="https://www.youtube.com/embed/QUFegcFhW94?rel=0">
-           ▶ Watch Demo
-        </a>
+        <button
+          class="btn watch-demo"
+          data-video="https://www.youtube.com/embed/z7mDWQlCRGw?rel=0&amp;autoplay=1"
+        >
+          ▶ Watch Demo
+        </button>
       </div>
 
-      <!-- ========== PLACEHOLDERS  2 – 12 ========== -->
-      <!-- Replace images / names / video URLs later -->
-      <!-- 2 -->
-      <div class="card">
-        <img src="assets/images/card2.jpg" alt="Placeholder">
-        <h3>Script #2</h3>
-        <p>Short description here.</p>
-        <a href="#" class="btn btn-demo" data-video="https://www.youtube.com/embed/VIDEO_ID">▶ Watch Demo</a>
-      </div>
-      <!-- 3 -->
-      <div class="card">
-        <img src="assets/images/card3.jpg" alt="Placeholder">
-        <h3>Script #3</h3>
-        <p>Short description here.</p>
-        <a href="#" class="btn btn-demo" data-video="https://www.youtube.com/embed/VIDEO_ID">▶ Watch Demo</a>
-      </div>
-      <!-- 4 -->
-      <div class="card">
-        <img src="assets/images/card4.jpg" alt="Placeholder">
-        <h3>Script #4</h3>
-        <p>Short description here.</p>
-        <a href="#" class="btn btn-demo" data-video="https://www.youtube.com/embed/VIDEO_ID">▶ Watch Demo</a>
-      </div>
-      <!-- 5 -->
-      <div class="card">
-        <img src="assets/images/card5.jpg" alt="Placeholder">
-        <h3>Script #5</h3>
-        <p>Short description here.</p>
-        <a href="#" class="btn btn-demo" data-video="https://www.youtube.com/embed/VIDEO_ID">▶ Watch Demo</a>
-      </div>
-      <!-- 6 -->
-      <div class="card">
-        <img src="assets/images/card6.jpg" alt="Placeholder">
-        <h3>Script #6</h3>
-        <p>Short description here.</p>
-        <a href="#" class="btn btn-demo" data-video="https://www.youtube.com/embed/VIDEO_ID">▶ Watch Demo</a>
-      </div>
-      <!-- 7 -->
-      <div class="card">
-        <img src="assets/images/card7.jpg" alt="Placeholder">
-        <h3>Script #7</h3>
-        <p>Short description here.</p>
-        <a href="#" class="btn btn-demo" data-video="https://www.youtube.com/embed/VIDEO_ID">▶ Watch Demo</a>
-      </div>
-      <!-- 8 -->
-      <div class="card">
-        <img src="assets/images/card8.jpg" alt="Placeholder">
-        <h3>Script #8</h3>
-        <p>Short description here.</p>
-        <a href="#" class="btn btn-demo" data-video="https://www.youtube.com/embed/VIDEO_ID">▶ Watch Demo</a>
-      </div>
-      <!-- 9 -->
-      <div class="card">
-        <img src="assets/images/card9.jpg" alt="Placeholder">
-        <h3>Script #9</h3>
-        <p>Short description here.</p>
-        <a href="#" class="btn btn-demo" data-video="https://www.youtube.com/embed/VIDEO_ID">▶ Watch Demo</a>
-      </div>
-      <!-- 10 -->
-      <div class="card">
-        <img src="assets/images/card10.jpg" alt="Placeholder">
-        <h3>Script #10</h3>
-        <p>Short description here.</p>
-        <a href="#" class="btn btn-demo" data-video="https://www.youtube.com/embed/VIDEO_ID">▶ Watch Demo</a>
-      </div>
-      <!-- 11 -->
-      <div class="card">
-        <img src="assets/images/card11.jpg" alt="Placeholder">
-        <h3>Script #11</h3>
-        <p>Short description here.</p>
-        <a href="#" class="btn btn-demo" data-video="https://www.youtube.com/embed/VIDEO_ID">▶ Watch Demo</a>
-      </div>
-      <!-- 12 -->
-      <div class="card">
-        <img src="assets/images/card12.jpg" alt="Placeholder">
-        <h3>Script #12</h3>
-        <p>Short description here.</p>
-        <a href="#" class="btn btn-demo" data-video="https://www.youtube.com/embed/VIDEO_ID">▶ Watch Demo</a>
-      </div>
+      <!-- template for placeholders -->
+      <template id="placeholder-card">
+        <div class="card">
+          <img src="assets/images/placeholder.jpg" alt="Placeholder" />
+          <h3>Script #XX</h3>
+          <p>Short description here.</p>
+          <button
+            class="btn watch-demo"
+            data-video="https://www.youtube.com/embed/VIDEO_ID?rel=0&amp;autoplay=1"
+          >
+            ▶ Watch Demo
+          </button>
+        </div>
+      </template>
     </div>
   </section>
 
-  <!-- ▸ YOUTUBE MODAL -------------------------------------------------------- -->
+  <!-- YouTube Demo Modal -->
   <div id="demoModal">
     <div class="modal-content">
       <button id="demoClose">&times;</button>
-      <!-- 16 × 9 iframe scales responsively via width=100% -->
-      <iframe id="demoFrame" width="100%" height="480"
-              src="" title="Script Demo"
-              frameborder="0" allow="accelerometer; autoplay; clipboard-write;
-              encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-      </iframe>
+      <iframe
+        id="demoIframe"
+        src=""
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
     </div>
   </div>
 
+  <!-- Footer -->
   <footer class="site-footer">© 2025 Gerson Bradford</footer>
 
-
-  <!-- one tiny helper script (runs *after* main.js) -->
+  <!-- Clone placeholders & wire up modal -->
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
+    // 1) duplicate placeholder cards up to 12 total
+    const grid = document.querySelector('.card-grid');
+    const tpl  = document.getElementById('placeholder-card').content;
+    for (let i = 2; i <= 12; i++) {
+      const clone = tpl.cloneNode(true);
+      clone.querySelector('h3').textContent = `Script #${i}`;
+      grid.appendChild(clone);
+    }
+
+    // 2) demo modal logic
     const demoModal  = document.getElementById('demoModal');
-    const demoFrame  = document.getElementById('demoFrame');
+    const demoIframe = document.getElementById('demoIframe');
     const demoClose  = document.getElementById('demoClose');
 
-    document.querySelectorAll('.btn-demo').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.preventDefault();
-        demoFrame.src = btn.dataset.video;
-        demoModal.classList.add('open');
-      });
+    grid.addEventListener('click', e => {
+      const btn = e.target.closest('.watch-demo');
+      if (!btn) return;
+      demoIframe.src = btn.dataset.video;
+      demoModal.classList.add('open');
     });
 
-    function closeModal () {
+    function closeDemo() {
       demoModal.classList.remove('open');
-      demoFrame.src = '';
+      demoIframe.src = ''; // unload
     }
-    demoClose.addEventListener('click', closeModal);
-    demoModal.addEventListener('click', e => { if (e.target === demoModal) closeModal(); });
-  });
+    demoClose.addEventListener('click', closeDemo);
+    demoModal.addEventListener('click', e => {
+      if (e.target === demoModal) closeDemo();
+    });
   </script>
 </body>
 </html>
