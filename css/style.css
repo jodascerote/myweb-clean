@@ -132,7 +132,12 @@ body{
     display: block;
   }
 }
-
+  /* Featured Work captions: dark text on the white caption bar */
+  .h-strip figcaption{
+    color:#141a24;          /* rich dark gray for contrast */
+    text-shadow:none;       /* ensure it's crisp, no glow */
+    opacity:0.96;           /* tiny softening so it’s not harsh black */
+  }
 
 /* Tools grid */
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:18px}
