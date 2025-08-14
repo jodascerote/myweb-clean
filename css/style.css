@@ -5,12 +5,11 @@
   --radius:14px; --ease:cubic-bezier(.2,.7,0,1);
 }
 
-.theme-a{ --section-a1:246,251,255; --section-a2:240,244,255; --ink:#10131a; --chip:#e8f3ff; }
+/* dark Work section */
+.theme-a{ --section-a1:18,20,29; --section-a2:10,12,18; --ink:#eaf1ff; --chip:#e8f3ff; }
 .theme-b{ --section-a1:255,248,249; --section-a2:255,240,255; --ink:#10131a; --chip:#ffe6f8; }
-.theme-c{ --section-a1:247,255,248; --section-a2:240,255,251; --ink:#10131a; --chip:#e9fff5; }
-
-/* >>> More vivid soft-orange for Let's talk <<< */
-.theme-d{ --section-a1:255,244,230; --section-a2:255,222,190; --ink:#10131a; --chip:#fff0d6; }
+.theme-c{ --section-a1:12,16,24;  --section-a2:12,16,22;  --ink:#eaf1ff; --chip:#e9fff5; }
+.theme-d{ --section-a1:255,217,184; --section-a2:255,232,211; --ink:#10131a; --chip:#fff0d6; }
 
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -57,11 +56,12 @@ body{
 }
 .hero-center{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;margin-inline:auto}
 
-/* Light sections */
+/* section backgrounds */
 .section.theme-a,.section.theme-b,.section.theme-c,.section.theme-d{
   background:linear-gradient(180deg,rgba(var(--section-a1),0.94) 0%,rgba(var(--section-a2),0.94) 100%);
   color:var(--ink);
 }
+.section.darker .work-title{color:#fff}
 
 /* ABOUT text sits over dark FX */
 #about{color:#eaf1ff}
@@ -98,15 +98,43 @@ body{
 
 /* Video poster */
 .video-poster{position:relative;display:block;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(0,0,0,.06);background:#000;box-shadow:0 10px 24px rgba(0,0,0,.12);aspect-ratio:16/9}
-.video-poster img{width:100%;height:100%;object-fit:cover;opacity:.95;display:block}
+.video-poster img{width:100%;height:100%;object-fit:cover;display:block;opacity:.95}
 .video-poster .play{position:absolute;inset:auto auto 16px 16px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#10131a;font-weight:900;border-radius:999px;padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 
-/* Strip / grid / about / contact */
+/* ===== Featured Work strip (thumbs always fit) ===== */
 .h-strip{margin-top:24px;display:flex;gap:16px;overflow:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
-.h-strip figure{min-width:260px;scroll-snap-align:start;margin:0;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(0,0,0,.06);background:#fff}
-.h-strip img{width:100%;height:180px;object-fit:cover;display:block}
+.h-strip figure{
+  flex: 0 0 clamp(260px, 28vw, 420px);       /* stable card width */
+  scroll-snap-align:start;margin:0;border-radius:var(--radius);overflow:hidden;
+  border:1px solid rgba(0,0,0,.06);background:#fff
+}
+.h-strip .thumb{display:block;aspect-ratio:16/9;overflow:hidden}
+.h-strip .thumb img{
+  width:100%;height:100%;display:block;object-fit:cover; /* crop nicely */
+}
 .h-strip figcaption{padding:10px 12px;font-weight:600}
 
+/* Featured Work — 4 across on desktop */
+@media (min-width: 1100px){
+  .h-strip{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    overflow: visible;            /* no horizontal scrolling on desktop */
+    padding-bottom: 0;
+  }
+  .h-strip figure{ min-width: 0; } /* allow grid to control width */
+  .h-strip .thumb{ aspect-ratio: 16 / 9; }
+  .h-strip .thumb img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+
+/* Tools grid */
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:18px}
 .card{grid-column:span 4;border-radius:var(--radius);overflow:hidden;background:#fff;color:#12151b;border:1px solid rgba(0,0,0,.06);box-shadow:0 12px 28px rgba(0,0,0,.08);display:flex;flex-direction:column}
 .card img{height:180px;width:100%;object-fit:cover;display:block}
@@ -122,31 +150,27 @@ body{
 .bullets{margin:0;padding-left:18px}
 @media (max-width:880px){.about{grid-template-columns:1fr}}
 
-/* bubble lane + controls */
+/* ===== Bubble lane (single-row marquee, no overlap) ===== */
 .bubble-lane{
   position:absolute; left:4%; right:4%;
   top: clamp(120px, 26vh, 190px);
   height: 74px;
-  pointer-events:none; z-index:0;
+  pointer-events:none; z-index:1; overflow:hidden;
+  --fade: 120px;
+  /* soft fade on both sides (Safari + others) */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
 }
 .bubble-ctrl{ position:absolute; right:4%; top: clamp(84px, 18vh, 140px); z-index:2; }
 
-/* marquee bubbles (JS controls transform) + fade */
+.bubble-track{ display:flex; gap:52px; will-change:transform; transform:translateX(0); }
+.bubble-seq{ display:flex; gap:52px; }
+
 .bubble{
-  position:absolute;
-  display:inline-block; white-space:nowrap;
+  position:relative; display:inline-block; white-space:nowrap;
   padding:10px 14px; border-radius:999px;
   background:var(--chip); color:#0f1422; font-weight:900;
   border:1px solid rgba(0,0,0,.06); box-shadow:0 6px 18px rgba(0,0,0,.12);
-  top: 12px; transform:translateX(0);
-  opacity:0; transition:opacity .25s linear;
-  will-change:transform,opacity;
-}
-
-/* Work heading light for dark background */
-.work-title{
-  color:#fff;
-  text-shadow:0 6px 24px rgba(0,0,0,.25);
 }
 
 /* CONTACT */
@@ -155,12 +179,15 @@ body{
 .contact-form label{display:grid;gap:6px;font-weight:700;color:#2a2d36}
 .contact-form input,.contact-form textarea{
   border:1px solid rgba(0,0,0,.25);
-  background:#f3f5fb;
-  border-radius:10px;padding:12px 12px;font:inherit;outline:none
+  background:#f3f5fb;border-radius:10px;padding:12px 12px;font:inherit;outline:none
 }
 .contact-form input:focus,.contact-form textarea:focus{border-color:#7a7aff;box-shadow:0 0 0 3px rgba(122,122,255,.2)}
 .contact-form .block{margin-top:12px}
 @media (max-width:720px){.contact-form .row{grid-template-columns:1fr}}
+
+/* Hidden honeypot utility (HTML already hides inline; keep for safety) */
+.hp{ position:absolute !important; left:-100vw !important; width:1px !important; height:1px !important; overflow:hidden !important; clip:rect(0 0 0 0) !important; white-space:nowrap !important; }
+.hp input{ pointer-events:none; }
 
 .footer{padding:26px 0;background:#0d1018;color:#b2bfd6;font-size:14px}
 .footer a{color:#dce6ff}
@@ -192,5 +219,5 @@ body.modal-open{overflow:hidden}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   .split .split-char,.reveal{transition:none;transform:none;opacity:1}
-  .bubble{transform:none;opacity:1}
+  .bubble-track{animation:none;transform:none}
 }

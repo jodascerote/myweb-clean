@@ -215,7 +215,7 @@ document.querySelectorAll('[data-video]').forEach(el=> el.addEventListener('clic
     resize(){ super.resize(); this.setup(); }
   }
 
-  /* ---- Net (LIGHT) — for sections like #contact where color needs to shine ---- */
+  /* ---- Net (LIGHT) ---- */
   class NetFXLight extends FXBase{
     constructor(c,h){ super(c,h); this.points=[]; this.setup(); }
     setup(){
@@ -380,7 +380,7 @@ document.querySelectorAll('[data-video]').forEach(el=> el.addEventListener('clic
   });
 })();
 
-/* ========= ABOUT: single-row bubble lane — JS marquee (loop, no overlap, fades) ========= */
+/* ========= ABOUT bubbles: marquee track (no overlap, true loop) ========= */
 (function aboutBubbles(){
   if (prefersReduced) return;
   const lane = document.getElementById('about-bubbles');
@@ -392,96 +392,63 @@ document.querySelectorAll('[data-video]').forEach(el=> el.addEventListener('clic
     'Pipeline automation','E-learning UI','mRNA','Immuno-oncology'
   ];
 
-  const SPEED = 110;   // px / second
-  const GAP   = 52;    // min spacing between chips
-  const PAD   = 140;   // offscreen padding
-  const FADE  = 160;   // fade at edges (px)
-
-  let bubbles = [];
-  let nextIdx = 0;
+  const SPEED = 110;   // px/sec
   let running = true;
-  let raf = 0, lastT = 0;
+  let raf = 0, lastT = 0, offset = 0, cycleW = 0;
 
   function setButton(){
     toggleBtn.textContent = running ? 'Pause' : 'Play';
     toggleBtn.setAttribute('aria-pressed', String(!running));
   }
 
-  function make(label){
-    const el = document.createElement('div');
-    el.className = 'bubble';
-    el.textContent = label;
-    lane.appendChild(el);
-    const w = Math.ceil(el.getBoundingClientRect().width) + 6;
-    return { el, w, x: 0 };
-  }
-
+  // Build: <div class="bubble-track"><div class="bubble-seq">…</div><div class="bubble-seq clone">…</div></div>
   async function build(){
     cancelAnimationFrame(raf);
     lane.innerHTML = '';
-    bubbles.length = 0;
-    nextIdx = 0;
+    offset = 0; cycleW = 0; lastT = 0;
 
+    // ensure fonts loaded for accurate measuring
     if (document.fonts && document.fonts.ready){ try { await document.fonts.ready; } catch(e){} }
 
-    const laneW = lane.clientWidth;
-    let x = 0;
+    const track = document.createElement('div');
+    track.className = 'bubble-track';
+    const seqA = document.createElement('div');
+    seqA.className = 'bubble-seq';
 
-    // Initial fill
-    while (x < laneW + PAD){
-      const b = make(LABELS[nextIdx++ % LABELS.length]);
-      b.x = x;
-      b.el.style.transform = `translateX(${b.x}px)`;
-      b.el.style.opacity = b.x < FADE ? (b.x/FADE).toFixed(3) : 1;
-      bubbles.push(b);
-      x += b.w + GAP;
+    for (const label of LABELS){
+      const b = document.createElement('div'); b.className='bubble'; b.textContent=label; seqA.appendChild(b);
+    }
+    const seqB = seqA.cloneNode(true);
+
+    track.append(seqA, seqB);
+    lane.appendChild(track);
+
+    // width of one cycle (first sequence)
+    cycleW = seqA.getBoundingClientRect().width + parseFloat(getComputedStyle(track).gap || 0);
+
+    function tick(ts){
+      raf = requestAnimationFrame(tick);
+      if (!running){ lastT = ts; return; }
+      if (!lastT) lastT = ts;
+      const dt = Math.min(0.05, (ts - lastT)/1000); lastT = ts;
+
+      offset -= SPEED * dt;
+      if (offset <= -cycleW) offset += cycleW; // hard loop without drift
+      track.style.transform = `translateX(${offset}px)`;
     }
 
-    lastT = 0;
     raf = requestAnimationFrame(tick);
+
+    // Pause animation when tab is hidden to keep timing perfect
+    document.addEventListener('visibilitychange', ()=>{
+      if (document.hidden){ running = false; setButton(); }
+    });
   }
 
-  function tick(ts){
-    raf = requestAnimationFrame(tick);
-    if (!running){ lastT = ts; return; }
-
-    if (!lastT) lastT = ts;
-    const dt = Math.min(0.05, (ts - lastT) / 1000);
-    lastT = ts;
-
-    const laneW = lane.clientWidth;
-
-    for (const b of bubbles){
-      b.x -= SPEED * dt;
-      b.el.style.transform = `translateX(${b.x}px)`;
-
-      // Fade in/out near edges
-      let a = 1;
-      if (b.x < 0) a = Math.max(0, Math.min(1, (b.x + FADE)/FADE));
-      else if (b.x > laneW - FADE) a = Math.max(0, Math.min(1, 1 - ((b.x - (laneW - FADE))/FADE)));
-      b.el.style.opacity = a.toFixed(3);
-    }
-
-    // Rightmost for append
-    let rightMost = -Infinity;
-    for (const b of bubbles) rightMost = Math.max(rightMost, b.x + b.w);
-
-    // Recycle
-    for (const b of bubbles){
-      if (b.x + b.w < -PAD){
-        const label = LABELS[nextIdx++ % LABELS.length];
-        b.el.textContent = label;
-        b.w = Math.ceil(b.el.getBoundingClientRect().width) + 6;
-        b.x = rightMost + GAP;
-        b.el.style.transform = `translateX(${b.x}px)`;
-        b.el.style.opacity = 0;
-        rightMost = b.x + b.w;
-      }
-    }
-  }
-
+  let resizeTO;
+  addEventListener('resize', ()=>{ clearTimeout(resizeTO); resizeTO = setTimeout(build, 120); });
   toggleBtn.addEventListener('click', ()=>{ running = !running; setButton(); });
-  addEventListener('resize', ()=>{ build(); });
+
   setButton(); build();
 })();
 

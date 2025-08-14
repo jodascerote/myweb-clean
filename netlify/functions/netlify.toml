@@ -1,0 +1,7 @@
+# netlify.toml – tells Netlify where your functions live
+[build]
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
