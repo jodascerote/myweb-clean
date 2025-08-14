@@ -10,7 +10,6 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <header class="site-nav">
     <div class="nav-inner">
       <a class="brand" href="#home" data-scroll>Gerson&nbsp;Bradford</a>
@@ -24,14 +23,12 @@
     </div>
   </header>
 
-  <!-- HERO -->
   <section id="home" class="section hero">
     <canvas class="fx" data-fx="nebula" data-hues="200,310" data-persist="true" aria-hidden="true"></canvas>
     <div class="container hero-center">
       <h1 id="title" class="display split">Motion that makes medicine <em class="shine">clear</em>.</h1>
       <p class="lead reveal">Award-winning medical e-learning, 2D MOA, and pipeline automation.</p>
       <div class="hero-actions reveal">
-        <!-- Main reel -->
         <a href="#" class="btn primary" data-video="JT3Lq8xV00Y">See the reel</a>
         <a href="#tools" data-scroll class="btn contrast">Workflow tools</a>
       </div>
@@ -43,9 +40,8 @@
     </div>
   </section>
 
-  <!-- WORK (dark, more animated net background; no helix) -->
-  <section id="work" class="section">
-    <canvas class="fx" data-fx="net" data-hues="210,308" aria-hidden="true"></canvas>
+  <section id="work" class="section theme-a">
+    <canvas class="fx" data-fx="nebula" data-hues="210,308" aria-hidden="true"></canvas>
 
     <div class="container">
       <h2 class="h-xl split work-title">Featured&nbsp;Work</h2>
@@ -56,32 +52,31 @@
         <img src="assets/images/reel-poster.png" alt="Showreel poster" loading="lazy">
       </a>
 
-      <!-- Thumbs — only GLP-1 is real; others use the "coming soon" placeholder -->
       <div class="h-strip reveal">
         <figure>
           <a class="thumb" href="#" data-video="BQbR5aAzvzs">
-            <img src="assets/images/thumb-moa-glp1.jpg" alt="MOA: GLP-1">
+            <img src="assets/images/thumb-moa-glp1.png" alt="MOA: GLP-1">
           </a>
           <figcaption>MOA: GLP-1</figcaption>
         </figure>
 
         <figure>
           <a class="thumb" href="#" data-video="Lz-ffOBkQm4">
-            <img src="assets/images/thumb-immuno.jpg" alt="Immuno-oncology">
+            <img src="assets/images/thumb-immuno.png" alt="Immuno-oncology">
           </a>
           <figcaption>Immuno-oncology</figcaption>
         </figure>
 
         <figure>
           <a class="thumb" href="#" data-video="Lz-ffOBkQm4">
-            <img src="assets/images/thumb-mrna.jpg" alt="mRNA Delivery">
+            <img src="assets/images/thumb-mrna.png" alt="mRNA Delivery">
           </a>
           <figcaption>mRNA Delivery</figcaption>
         </figure>
 
         <figure>
           <a class="thumb" href="#" data-video="Lz-ffOBkQm4">
-            <img src="assets/images/thumb-elearning.jpg" alt="E-learning UI">
+            <img src="assets/images/thumb-elearning.png" alt="E-learning UI">
           </a>
           <figcaption>E-learning UI</figcaption>
         </figure>
@@ -89,7 +84,6 @@
     </div>
   </section>
 
-  <!-- TOOLS -->
   <section id="tools" class="section theme-b">
     <canvas class="fx" data-fx="code" data-hues="305,180" aria-hidden="true"></canvas>
 
@@ -124,16 +118,34 @@
             <a class="btn tiny" href="#" data-video="Lz-ffOBkQm4">Watch demo</a>
           </div>
         </article>
+
+        <!-- When you’re ready to add two more tools, use these placeholders: -->
+        <!--
+        <article class="card">
+          <img src="assets/images/tool-placeholder-01.png" alt="">
+          <div class="card-body">
+            <h3 class="h-m">New Tool #1</h3>
+            <p>Under construction.</p>
+            <a class="btn tiny" href="#" data-video="Lz-ffOBkQm4">Watch demo</a>
+          </div>
+        </article>
+        <article class="card">
+          <img src="assets/images/tool-placeholder-02.png" alt="">
+          <div class="card-body">
+            <h3 class="h-m">New Tool #2</h3>
+            <p>Under construction.</p>
+            <a class="btn tiny" href="#" data-video="Lz-ffOBkQm4">Watch demo</a>
+          </div>
+        </article>
+        -->
       </div>
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section id="about" class="section theme-c">
     <canvas class="fx" data-fx="nebula" data-hues="160,220" aria-hidden="true"></canvas>
 
     <div class="container about">
-      <!-- continuous non-overlapping marquee with fades -->
       <div class="bubble-lane" id="about-bubbles" aria-hidden="true"></div>
       <div class="bubble-ctrl">
         <button id="bubbleToggle" class="btn tiny ghost" aria-pressed="false">Pause</button>
@@ -157,7 +169,6 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact" class="section theme-d">
     <canvas class="fx" data-fx="net" data-hues="40,12" aria-hidden="true"></canvas>
 
@@ -175,11 +186,8 @@
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="container">© <span id="y"></span> Gerson Bradford — <a href="https://www.linkedin.com/in/optimumpixel" target="_blank" rel="noopener">LinkedIn</a></div>
-  </footer>
+  <footer class="footer"><div class="container">© <span id="y"></span> Gerson Bradford — <a href="https://www.linkedin.com/in/optimumpixel" target="_blank" rel="noopener">LinkedIn</a></div></footer>
 
-  <!-- VIDEO MODAL -->
   <div class="modal video" id="videoModal" aria-hidden="true">
     <div class="overlay" data-close></div>
     <div class="modal-box" role="dialog" aria-modal="true" aria-label="Video">
