@@ -1,68 +1,193 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gerson Bradford – Portfolio</title>
-  <link rel="icon" href="assets/images/favicon.ico" />
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
-
-  <!-- Main stylesheet -->
-  <link rel="stylesheet" href="./css/style.css" />
+  <title>Gerson Bradford — Motion & Medical Animation</title>
+  <meta name="description" content="Award-winning motion designer specializing in medical e-learning, MOA, and workflow automation." />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Inter:wght@300..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="nav">
-    <a href="index.html" class="active">Home</a>
-    <a href="reel.html">Reel</a>
-    <a href="scripts.html">Scripts</a>
-    <a href="contact.html">Contact</a>
-  </nav>
 
-  <!-- Hero -->
-  <section id="vanta-bg" class="hero">
-    <div class="code-bg"></div>
-    <div class="hero-overlay">
-      <h1 id="name">Gerson Bradford</h1>
-      <p class="hero-sub">Motion Graphics • AE Scripts • Creative Coding</p>
+  <!-- NAV -->
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="#home" data-scroll>Gerson&nbsp;Bradford</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="nav-links" role="navigation">
+        <a href="#work" data-scroll>Work</a>
+        <a href="#tools" data-scroll>Tools</a>
+        <a href="#about" data-scroll>About</a>
+        <a href="#contact" data-scroll class="cta">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="section hero">
+    <canvas class="fx" data-fx="nebula" data-hues="200,310" data-persist="true" aria-hidden="true"></canvas>
+    <div class="container hero-center">
+      <h1 id="title" class="display split">Motion that makes medicine <em class="shine">clear</em>.</h1>
+      <p class="lead reveal">Award-winning medical e-learning, 2D MOA, and pipeline automation.</p>
+      <div class="hero-actions reveal">
+        <!-- Main reel -->
+        <a href="#" class="btn primary" data-video="JT3Lq8xV00Y">See the reel</a>
+        <a href="#tools" data-scroll class="btn contrast">Workflow tools</a>
+      </div>
+      <ul class="stats reveal" aria-label="Highlights">
+        <li><span data-counter="120">0</span><small>MOA / training animations</small></li>
+        <li><span data-counter="34">0</span><small>AE scripts</small></li>
+        <li><span data-counter="2">0</span><small>UXP extensions</small></li>
+      </ul>
     </div>
   </section>
 
-  <!-- Pop-up Modal -->
-  <div id="popupModal">
-    <div class="popup-content">
-      <button id="popupClose">&times;</button>
-      <div id="popupInner"></div>
+  <!-- WORK (dark, more animated net background; no helix) -->
+  <section id="work" class="section">
+    <canvas class="fx" data-fx="net" data-hues="210,308" aria-hidden="true"></canvas>
+
+    <div class="container">
+      <h2 class="h-xl split work-title">Featured&nbsp;Work</h2>
+
+      <!-- Big poster opens reel -->
+      <a class="video-poster reveal" data-video="JT3Lq8xV00Y" aria-label="Play reel">
+        <div class="play">▶</div>
+        <img src="assets/images/reel-poster.png" alt="Showreel poster" loading="lazy">
+      </a>
+
+      <!-- Thumbs — only GLP-1 is real; others use the "coming soon" placeholder -->
+      <div class="h-strip reveal">
+        <figure>
+          <a class="thumb" href="#" data-video="BQbR5aAzvzs">
+            <img src="assets/images/thumb-moa-glp1.jpg" alt="MOA: GLP-1">
+          </a>
+          <figcaption>MOA: GLP-1</figcaption>
+        </figure>
+
+        <figure>
+          <a class="thumb" href="#" data-video="Lz-ffOBkQm4">
+            <img src="assets/images/thumb-immuno.jpg" alt="Immuno-oncology">
+          </a>
+          <figcaption>Immuno-oncology</figcaption>
+        </figure>
+
+        <figure>
+          <a class="thumb" href="#" data-video="Lz-ffOBkQm4">
+            <img src="assets/images/thumb-mrna.jpg" alt="mRNA Delivery">
+          </a>
+          <figcaption>mRNA Delivery</figcaption>
+        </figure>
+
+        <figure>
+          <a class="thumb" href="#" data-video="Lz-ffOBkQm4">
+            <img src="assets/images/thumb-elearning.jpg" alt="E-learning UI">
+          </a>
+          <figcaption>E-learning UI</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools" class="section theme-b">
+    <canvas class="fx" data-fx="code" data-hues="305,180" aria-hidden="true"></canvas>
+
+    <div class="container">
+      <h2 class="h-xl split">Pipeline&nbsp;Tools</h2>
+      <p class="subtle reveal">After Effects automation that cuts hours into minutes.</p>
+
+      <div class="grid reveal">
+        <article class="card">
+          <img src="assets/images/card1.jpg" alt="">
+          <div class="card-body">
+            <h3 class="h-m">Reveal-O-Matic</h3>
+            <p>Fast matte reveals and animated strokes.</p>
+            <a class="btn tiny" href="#" data-video="z7mDWQlCRGw">Watch demo</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="assets/images/card2.jpg" alt="">
+          <div class="card-body">
+            <h3 class="h-m">Scene Prep Wizard</h3>
+            <p>Batch precomp, label norms, tidy timelines.</p>
+            <a class="btn tiny" href="#" data-video="Lz-ffOBkQm4">Watch demo</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="assets/images/card3.png" alt="">
+          <div class="card-body">
+            <h3 class="h-m">Auto-Localize</h3>
+            <p>Text export/import for multi-language.</p>
+            <a class="btn tiny" href="#" data-video="Lz-ffOBkQm4">Watch demo</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section theme-c">
+    <canvas class="fx" data-fx="nebula" data-hues="160,220" aria-hidden="true"></canvas>
+
+    <div class="container about">
+      <!-- continuous non-overlapping marquee with fades -->
+      <div class="bubble-lane" id="about-bubbles" aria-hidden="true"></div>
+      <div class="bubble-ctrl">
+        <button id="bubbleToggle" class="btn tiny ghost" aria-pressed="false">Pause</button>
+      </div>
+
+      <div>
+        <h2 class="h-xl split">About&nbsp;Gerson</h2>
+        <p class="reveal">Senior motion designer with 15+ years in medical animation. I translate complex
+          science into visuals that improve comprehension—and build tools that accelerate teams.</p>
+        <ul class="tags reveal"><li>MOA</li><li>Medical e-learning</li><li>AE Scripting</li><li>Storyboarding</li><li>C4D</li></ul>
+      </div>
+
+      <div class="about-card reveal">
+        <h3 class="h-m">Highlights</h3>
+        <ul class="bullets">
+          <li>Telly Award (Team), 2022</li>
+          <li>EdTech Week Demo Day Finalist, 2023</li>
+          <li>120+ training animations delivered</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section theme-d">
+    <canvas class="fx" data-fx="net" data-hues="40,12" aria-hidden="true"></canvas>
+
+    <div class="container">
+      <h2 class="h-xl split">Let’s&nbsp;talk</h2>
+      <form class="contact-form reveal" action="/.netlify/functions/contact" method="POST">
+        <div class="row">
+          <label><span>Name</span><input type="text" name="name" required /></label>
+          <label><span>Email</span><input type="email" name="email" required /></label>
+        </div>
+        <label class="block"><span>Message</span><textarea name="message" rows="5" required></textarea></label>
+        <button class="btn primary" type="submit">Send</button>
+      </form>
+      <p class="subtle reveal">Or email: <a href="mailto:absoluta.motion@gmail.com">absoluta.motion@gmail.com</a></p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">© <span id="y"></span> Gerson Bradford — <a href="https://www.linkedin.com/in/optimumpixel" target="_blank" rel="noopener">LinkedIn</a></div>
+  </footer>
+
+  <!-- VIDEO MODAL -->
+  <div class="modal video" id="videoModal" aria-hidden="true">
+    <div class="overlay" data-close></div>
+    <div class="modal-box" role="dialog" aria-modal="true" aria-label="Video">
+      <button class="close" data-close aria-label="Close">×</button>
+      <div class="modal-inner"></div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="site-footer">© 2025 Gerson Bradford</footer>
-
-  <!-- JS libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.net.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" defer></script>
-
-  <!-- Main JS -->
-  <script src="./js/main.js" defer></script>
-
-  <!-- ► Video Demo Modal -->
-  <div id="demoModal">
-    <div class="modal-content">
-      <button id="demoClose">&times;</button>
-      <iframe
-        id="demoIframe"
-        src=""
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-    </div>
-  </div>
-
+  <script src="js/main.js" defer></script>
 </body>
 </html>
