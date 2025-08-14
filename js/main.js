@@ -90,25 +90,76 @@ document.querySelectorAll('[data-counter]').forEach(el=>{
 });
 
 /* ========= keep hero title on one line ========= */
+/* ========= keep hero title on one line (font-safe) ========= */
 (function fitTitle(){
-  const el = document.getElementById('title'); if (!el) return;
-  let prevW = 0;
-  function fit(){
-    const parent = el.parentElement; const w = parent?.clientWidth || 0;
-    if (w < 10) return; if (Math.abs(w - prevW) < 8) return; prevW = w;
+  const el = document.getElementById('title');
+  if (!el) return;
+
+  const parent = el.parentElement;
+  let prevWidth = 0;
+
+  function calc() {
+    if (!parent) return;
+    const w = parent.clientWidth || 0;
+    if (w < 10) return;
+
+    // avoid thrashing if width hasn't changed meaningfully
+    if (Math.abs(w - prevWidth) < 4 && el.dataset.fitted === '1') return;
+    prevWidth = w;
+
     const MAX = 84, MIN = 18;
     let size = Math.min(MAX, Math.max(MIN, Math.round(w * 0.072)));
-    el.style.fontSize = size + 'px'; el.style.transform = 'none';
-    if (el.scrollWidth <= w) return;
+
+    el.style.fontSize = size + 'px';
+    el.style.transform = 'none';
+    el.style.transformOrigin = 'center top';
+    el.style.whiteSpace = 'nowrap';
+
+    // shrink until it fits, then final safety scale
     let guard = 0;
-    while (el.scrollWidth > w && size > MIN && guard < 120){ size -= 1; guard++; el.style.fontSize = size + 'px'; }
-    if (el.scrollWidth > w){
-      const ratio = Math.max(0.7, w / el.scrollWidth);
-      el.style.transform = `scale(${ratio})`; el.style.transformOrigin = 'center top';
+    while (el.scrollWidth > w && size > MIN && guard < 140) {
+      size -= 1; guard++;
+      el.style.fontSize = size + 'px';
     }
+    if (el.scrollWidth > w) {
+      const ratio = Math.max(0.7, w / el.scrollWidth);
+      el.style.transform = `scale(${ratio})`;
+    }
+    el.dataset.fitted = '1';
   }
-  fit(); addEventListener('resize', fit, {passive:true});
+
+  async function fitAfterFonts() {
+    try {
+      // Wait until custom fonts are loaded & layout is stable (MDN: document.fonts.ready)
+      if ('fonts' in document && document.fonts?.ready) {
+        await document.fonts.ready;
+      } else {
+        await new Promise(r => addEventListener('load', r, { once: true }));
+      }
+    } catch {}
+    requestAnimationFrame(calc);
+  }
+
+  // Initial fit after fonts
+  fitAfterFonts();
+
+  // If fonts load later (some browsers dispatch loadingdone)
+  try { document.fonts?.addEventListener?.('loadingdone', () => requestAnimationFrame(calc)); } catch {}
+
+  // Re-fit when the container or the element resizes (MDN: ResizeObserver)
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(() => calc());
+    parent && ro.observe(parent);
+    ro.observe(el);
+  } else {
+    addEventListener('resize', () => calc(), { passive: true });
+  }
+
+  // Safari/BCache: refit when page is shown from bfcache or on orientation change
+  addEventListener('pageshow', () => requestAnimationFrame(calc));
+  addEventListener('orientationchange', () => setTimeout(calc, 50));
 })();
+
 
 /* ========= video modal ========= */
 const videoModal = document.getElementById('videoModal');
