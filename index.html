@@ -169,22 +169,55 @@
     </div>
   </section>
 
-  <section id="contact" class="section theme-d">
-    <canvas class="fx" data-fx="net" data-hues="40,12" aria-hidden="true"></canvas>
+<section id="contact" class="section theme-d">
+  <!-- keep your animated canvas if you want -->
+  <canvas class="fx" data-fx="net" data-hues="40,12" aria-hidden="true"></canvas>
 
-    <div class="container">
-      <h2 class="h-xl split">Let’s&nbsp;talk</h2>
-      <form class="contact-form reveal" action="/.netlify/functions/contact" method="POST">
-        <div class="row">
-          <label><span>Name</span><input type="text" name="name" required /></label>
-          <label><span>Email</span><input type="email" name="email" required /></label>
-        </div>
-        <label class="block"><span>Message</span><textarea name="message" rows="5" required></textarea></label>
-        <button class="btn primary" type="submit">Send</button>
-      </form>
-      <p class="subtle reveal">Or email: <a href="mailto:absoluta.motion@gmail.com">absoluta.motion@gmail.com</a></p>
-    </div>
-  </section>
+  <div class="container">
+    <h2 class="h-xl split">Let’s&nbsp;talk</h2>
+
+    <!-- Netlify Forms: name + data-netlify + hidden form-name + honeypot -->
+    <form
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      action="/thanks.html"
+      class="contact-form reveal"
+    >
+      <!-- Required hidden input for Netlify -->
+      <input type="hidden" name="form-name" value="contact" />
+
+      <!-- Honeypot (bots only). Keep it hidden. -->
+      <div style="position:absolute;left:-9999px;visibility:hidden;">
+        <label>Don’t fill this out: <input name="bot-field" /></label>
+      </div>
+
+      <div class="row">
+        <label>
+          <span>Name</span>
+          <input type="text" name="name" required />
+        </label>
+
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" required />
+        </label>
+      </div>
+
+      <label class="block">
+        <span>Message</span>
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+
+      <button class="btn primary" type="submit">Send</button>
+    </form>
+
+    <p class="subtle reveal">
+      Or email: <a href="mailto:absoluta.motion@gmail.com">absoluta.motion@gmail.com</a>
+    </p>
+  </div>
+</section>
 
   <footer class="footer"><div class="container">© <span id="y"></span> Gerson Bradford — <a href="https://www.linkedin.com/in/optimumpixel" target="_blank" rel="noopener">LinkedIn</a></div></footer>
 

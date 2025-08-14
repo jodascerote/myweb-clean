@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thanks — Message received</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Inter:wght@300..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .thanks-wrap{min-height:70vh;display:grid;place-items:center}
+    .thanks-card{background:#fff;color:#10131a;border:1px solid rgba(0,0,0,.06);border-radius:14px;
+      padding:28px 24px;max-width:720px;width:min(92vw,720px);text-align:center;
+      box-shadow:0 10px 28px rgba(0,0,0,.08)}
+    .thanks-card h1{margin:0 0 10px;font-family:"Plus Jakarta Sans",Inter;font-weight:800}
+    .thanks-card p{margin:0 0 18px;color:#2a2d36}
+  </style>
+</head>
+<body>
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="/" data-scroll>Gerson&nbsp;Bradford</a>
+      <nav class="nav-links" role="navigation">
+        <a href="/#work">Work</a>
+        <a href="/#tools">Tools</a>
+        <a href="/#about">About</a>
+        <a href="/#contact" class="cta">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section theme-d">
+    <div class="container thanks-wrap">
+      <div class="thanks-card">
+        <h1>Thanks!</h1>
+        <p>Your message was sent. I’ll get back to you shortly.</p>
+        <a class="btn primary" href="/">Back to home</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="container">© <span id="y"></span> Gerson Bradford</div></footer>
+  <script>
+    const y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
