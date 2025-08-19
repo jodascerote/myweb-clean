@@ -91,6 +91,14 @@ body{
 .btn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
 .btn.ghost[aria-pressed="true"]{background:rgba(255,255,255,.28);}
 
+.hero-note{
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+
+
 /* Stats */
 .stats{margin:28px auto 0;padding:0;list-style:none;display:flex;gap:clamp(18px,4vw,38px);justify-content:center;flex-wrap:wrap}
 .stats span{font-weight:900;font-size:clamp(32px,4.4vw,48px);display:block}
